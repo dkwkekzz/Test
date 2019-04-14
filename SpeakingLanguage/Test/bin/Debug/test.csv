@@ -1,0 +1,10 @@
+2015-02-04,원본,,,,,,이동시간(캐릭터애니메이션재생시간),,이동거리,,,,,,,,,,,,,,,,,,,,,,,,
+Text,Integer,Integer,Boolean,Boolean,Boolean,Boolean,Integer,Integer,Integer,Boolean,Integer,Integer,Integer,Boolean,Integer,Integer,Integer,Boolean,Boolean,Integer,Integer,Integer,Integer,Integer,Text,Integer,Integer,Integer,Integer,Integer,Integer,Integer,Integer
+Code,TotalTimeLength,SubTotalTimeLength,MovementRotateDirection,MovementDirection,MovementStayFall.UseStayFall,MovementStayFall.NeedTarget,MovementTimeLength,SubMovementTimeLength,MovementDistance,MovementChain.UseChain,MovementChain.ChainSpeed,MovementChain.SlideDistance,MovementChain.SlideSpeed,MovementJump.UseJump,MovementJump.MoveSpeed,MovementJump.RiseSpeed,MovementJump.RiseHeight,MovementFlash.UseFlash,MovementFlash.UseNotTargetMove,MovementFlash.Effect,MovementFlash.EffectFactorPercent,Hit[0].Order,Hit[0].TimeLength,Hit[0].SubTimeLength,AnimationName,Effect[0].Index,Effect[0].TimeLength,Effect[1].Index,Effect[1].TimeLength,Effect[2].Index,Effect[2].TimeLength,Effect[3].Index,Effect[3].TimeLength
+Skill_Aran_HuntersPrey_Pre,450,,FALSE,FALSE,,,450,,0,,,,,FALSE,0,0,0,,,,,0,0,,HuntersPrey_Pre,26104,0,,,,,,
+Skill_Aran_HuntersPrey_Keydown,1000,,FALSE,FALSE,,,450,,0,,,,,FALSE,0,0,0,,,,,0,990,,HuntersPrey,26106,0,26107,0,,,,
+Skill_Aran_HuntersPrey_Keydownend,540,,FALSE,FALSE,,,540,,0,,,,,FALSE,0,0,0,TRUE,FALSE,0,0,0,0,,HuntersPrey1,26108,0,26109,0,,,,
+Skill_Aran_StormofFear_Pre,530,,FALSE,FALSE,,,530,,0,,,,,FALSE,0,0,0,,,,,0,0,,StormofFear1,26112,0,26113,0,,,,
+Skill_Aran_StormofFear_Keydown,720,500,FALSE,FALSE,,,0,0,0,,,,,FALSE,0,0,0,,,,,0,710,450,StormofFear,26114,0,26115,0,,,,
+Skill_Aran_StormofFear_Keydownend,530,,FALSE,FALSE,,,530,,0,,,,,FALSE,0,0,0,,,,,0,0,,StormofFear1,26116,0,26117,0,,,,
+Aran_Dash,500,,FALSE,TRUE,,,500,,256,,,,,FALSE,0,0,0,,,,,0,0,,Jump,26001,0,,,,,,

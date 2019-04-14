@@ -1,0 +1,2 @@
+C:\Users\dkwke\source\repos\SpeakingLanguage\Action\obj\Debug\Action.csprojResolveAssemblyReference.cache
+C:\Users\dkwke\source\repos\SpeakingLanguage\Action\obj\Debug\Action.csproj.CoreCompileInputs.cache

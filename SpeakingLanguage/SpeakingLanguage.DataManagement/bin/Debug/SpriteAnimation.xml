@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<SpriteAnimationBundle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SpriteAnimations>
+    <SpriteAnimation Code="Mon_Tortie_00">
+      <Size Width="65" Height="37" />
+      <AnimationDatas>
+        <AnimationData Animation="Stand" FrameRate="6.66666651">
+          <SpriteFrames>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0.26953125" Y="0" Width="0.25390625" Height="0.14453125" />
+            </SpriteFrame>
+          </SpriteFrames>
+        </AnimationData>
+        <AnimationData Animation="Move" FrameRate="5.55555534">
+          <SpriteFrames>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0.26953125" Y="0" Width="0.25390625" Height="0.14453125" />
+            </SpriteFrame>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0.52734375" Y="0" Width="0.25390625" Height="0.14453125" />
+            </SpriteFrame>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0" Y="0.578125" Width="0.24609375" Height="0.14453125" />
+            </SpriteFrame>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0.2578125" Y="0.3125" Width="0.2421875" Height="0.14453125" />
+            </SpriteFrame>
+          </SpriteFrames>
+        </AnimationData>
+        <AnimationData Animation="Hit" FrameRate="1.66666663">
+          <SpriteFrames>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0" Y="0.18359375" Width="0.25390625" Height="0.18359375" />
+            </SpriteFrame>
+          </SpriteFrames>
+        </AnimationData>
+        <AnimationData Animation="Die" FrameRate="4.5454545">
+          <SpriteFrames>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0.50390625" Y="0.3125" Width="0.23828125" Height="0.14453125" />
+            </SpriteFrame>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0.74609375" Y="0.3125" Width="0.24609375" Height="0.125" />
+            </SpriteFrame>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0.55078125" Y="0.18359375" Width="0.25390625" Height="0.125" />
+            </SpriteFrame>
+          </SpriteFrames>
+        </AnimationData>
+        <AnimationData Animation="Corpse" FrameRate="33.3333359">
+          <SpriteFrames>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0.55078125" Y="0.18359375" Width="0.25390625" Height="0.125" />
+            </SpriteFrame>
+          </SpriteFrames>
+        </AnimationData>
+        <AnimationData Animation="Attack 1" FrameRate="2">
+          <SpriteFrames>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0" Y="0.7265625" Width="0.23828125" Height="0.1484375" />
+            </SpriteFrame>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0.2578125" Y="0.18359375" Width="0.2890625" Height="0.125" />
+            </SpriteFrame>
+          </SpriteFrames>
+        </AnimationData>
+      </AnimationDatas>
+    </SpriteAnimation>
+    <SpriteAnimation Code="Mon_RibbonPig_00">
+      <Size Width="68" Height="49" />
+      <AnimationDatas>
+        <AnimationData Animation="Stand" FrameRate="5.55555534">
+          <SpriteFrames>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0.265625" Y="0.22265625" Width="0.265625" Height="0.19140625" />
+            </SpriteFrame>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0.265625" Y="0.41796875" Width="0.265625" Height="0.18359375" />
+            </SpriteFrame>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0.53515625" Y="0.41796875" Width="0.26953125" Height="0.17578125" />
+            </SpriteFrame>
+          </SpriteFrames>
+        </AnimationData>
+        <AnimationData Animation="Move" FrameRate="6">
+          <SpriteFrames>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0" Y="0.421875" Width="0.26171875" Height="0.19140625" />
+            </SpriteFrame>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0" Y="0.22265625" Width="0.26171875" Height="0.1953125" />
+            </SpriteFrame>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0.53515625" Y="0.22265625" Width="0.2578125" Height="0.19140625" />
+            </SpriteFrame>
+          </SpriteFrames>
+        </AnimationData>
+        <AnimationData Animation="Hit" FrameRate="1.66666663">
+          <SpriteFrames>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0" Y="0.6171875" Width="0.234375" Height="0.2109375" />
+            </SpriteFrame>
+          </SpriteFrames>
+        </AnimationData>
+        <AnimationData Animation="Die" FrameRate="4.5454545">
+          <SpriteFrames>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0" Y="0" Width="0.26953125" Height="0.21875" />
+            </SpriteFrame>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0.2734375" Y="0" Width="0.265625" Height="0.21484375" />
+            </SpriteFrame>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0.54296875" Y="0" Width="0.2578125" Height="0.203125" />
+            </SpriteFrame>
+          </SpriteFrames>
+        </AnimationData>
+        <AnimationData Animation="Corpse" FrameRate="33.3333359">
+          <SpriteFrames>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0.54296875" Y="0" Width="0.2578125" Height="0.203125" />
+            </SpriteFrame>
+          </SpriteFrames>
+        </AnimationData>
+        <AnimationData Animation="Jump" FrameRate="6.66666651">
+          <SpriteFrames>
+            <SpriteFrame TextureIndex="0">
+              <Uvs X="0" Y="0.421875" Width="0.26171875" Height="0.19140625" />
+            </SpriteFrame>
+          </SpriteFrames>
+        </AnimationData>
+      </AnimationDatas>
+    </SpriteAnimation>
+  </SpriteAnimations>
+</SpriteAnimationBundle>

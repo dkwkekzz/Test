@@ -1,0 +1,9 @@
+    The product name is Widget
+    The available units on hand are100
+    The per unit cost is 1.03
+Debug Information-Product Ending
+Trace Information-Product Starting 
+    The product name is Widget
+    Field: The product name isWidget
+    This message WILL appear
+Trace Information-Product Ending

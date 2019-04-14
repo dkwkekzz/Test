@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{93DA59F0-0817-4BA7-877F-21FADFF1E26D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SpeakingLanguage.Core</RootNamespace>
+    <AssemblyName>SpeakingLanguage.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Components\Public\ResultBuffer.cs" />
+    <Compile Include="Components\Public\SourceBuffer.cs" />
+    <Compile Include="Components\Public\Logger.cs" />
+    <Compile Include="Process\Loop.cs" />
+    <Compile Include="SpeakingService.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Sources\CellSource.cs" />
+    <Compile Include="SpeakingDriver\LoopState\CellDictionary.cs" />
+    <Compile Include="SpeakingDriver\LoopState\DynamicGraph.cs" />
+    <Compile Include="SpeakingDriver\LoopState\FrameResult.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Components\Public\Ticker.cs" />
+    <Compile Include="SpeakingDriver\LoopState\ValueMap.cs" />
+    <Compile Include="Components\Public\Graph.cs" />
+    <Compile Include="Components\Internal\JobPartitioner.cs" />
+    <Compile Include="Locator.cs" />
+    <Compile Include="Node.cs" />
+    <Compile Include="Sources\RenderingSource.cs" />
+    <Compile Include="SpeakingDriver\LoopState\IStateComponent.cs" />
+    <Compile Include="SpeakingDriver\LoopState\LegAnalyzer.cs" />
+    <Compile Include="SpeakingDriver\LoopState\SourceBuffer.cs" />
+    <Compile Include="Components\Internal\SystemCollection.cs" />
+    <Compile Include="SpeakingDriver\LoopState\SystemIterator.cs" />
+    <Compile Include="SpeakingState\SpinSyncHandle.cs" />
+    <Compile Include="Components\Internal\SyncHandle.cs" />
+    <Compile Include="Process\Utils.cs" />
+    <Compile Include="SpeakingState\Cache.cs" />
+    <Compile Include="SpeakingState\Container.cs" />
+    <Compile Include="Sources\ContextSource.cs" />
+    <Compile Include="EventEntity.cs" />
+    <Compile Include="SpeakingDriver.cs" />
+    <Compile Include="SpeakingState\IInjectable.cs" />
+    <Compile Include="SpeakingState\Injection.cs" />
+    <Compile Include="SpeakingDriver\LoopState.cs" />
+    <Compile Include="SpeakingState\Factory.cs" />
+    <Compile Include="SpeakingDriver\LoopState\TokenCache.cs" />
+    <Compile Include="Sources\PhysicsSource.cs" />
+    <Compile Include="Sources\TokenSource.cs" />
+    <Compile Include="Sources\EventSource.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TokenExtensions.cs" />
+    <Compile Include="SpeakingSystem.cs" />
+    <Compile Include="Token.cs" />
+    <Compile Include="TokenFactory.cs" />
+    <Compile Include="TokenFlag.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

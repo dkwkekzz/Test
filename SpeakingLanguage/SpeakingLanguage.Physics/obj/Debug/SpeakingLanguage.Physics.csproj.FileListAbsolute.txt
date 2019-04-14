@@ -1,0 +1,2 @@
+C:\Users\dkwke\source\repos\SpeakingLanguage\SpeakingLanguage.Physics\obj\Debug\SpeakingLanguage.Physics.csproj.CoreCompileInputs.cache
+C:\Users\dkwke\source\repos\SpeakingLanguage\SpeakingLanguage.Physics\obj\Debug\SpeakingLanguage.Physics.csprojAssemblyReference.cache

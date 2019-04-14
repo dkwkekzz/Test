@@ -1,0 +1,12 @@
+C:\Users\dkwke\source\repos\SpeakingLanguage\Compile\obj\Debug\Compile.csprojResolveAssemblyReference.cache
+C:\Users\dkwke\source\repos\SpeakingLanguage\Compile\obj\Debug\Compile.csproj.CoreCompileInputs.cache
+C:\Users\dkwke\source\repos\SpeakingLanguage\Compile\bin\Debug\SpeakingLanguage.Compile.dll
+C:\Users\dkwke\source\repos\SpeakingLanguage\Compile\bin\Debug\SpeakingLanguage.Compile.pdb
+C:\Users\dkwke\source\repos\SpeakingLanguage\Compile\bin\Debug\Linkage.dll
+C:\Users\dkwke\source\repos\SpeakingLanguage\Compile\bin\Debug\SpeakingLanguage.Library.dll
+C:\Users\dkwke\source\repos\SpeakingLanguage\Compile\bin\Debug\Newtonsoft.Json.dll
+C:\Users\dkwke\source\repos\SpeakingLanguage\Compile\bin\Debug\SpeakingLanguage.Library.pdb
+C:\Users\dkwke\source\repos\SpeakingLanguage\Compile\bin\Debug\Linkage.pdb
+C:\Users\dkwke\source\repos\SpeakingLanguage\Compile\bin\Debug\Newtonsoft.Json.xml
+C:\Users\dkwke\source\repos\SpeakingLanguage\Compile\obj\Debug\SpeakingLanguage.Compile.dll
+C:\Users\dkwke\source\repos\SpeakingLanguage\Compile\obj\Debug\SpeakingLanguage.Compile.pdb

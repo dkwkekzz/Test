@@ -1,0 +1,12 @@
+C:\Users\dkwke\source\repos\SpeakingLanguage\Paging\obj\Debug\Paging.csproj.CoreCompileInputs.cache
+C:\Users\dkwke\source\repos\SpeakingLanguage\Paging\bin\Debug\SpeakingLanguage.Paging.dll
+C:\Users\dkwke\source\repos\SpeakingLanguage\Paging\bin\Debug\SpeakingLanguage.Paging.pdb
+C:\Users\dkwke\source\repos\SpeakingLanguage\Paging\bin\Debug\SpeakingLanguage.Library.dll
+C:\Users\dkwke\source\repos\SpeakingLanguage\Paging\bin\Debug\Newtonsoft.Json.dll
+C:\Users\dkwke\source\repos\SpeakingLanguage\Paging\bin\Debug\SpeakingLanguage.Library.pdb
+C:\Users\dkwke\source\repos\SpeakingLanguage\Paging\bin\Debug\Newtonsoft.Json.xml
+C:\Users\dkwke\source\repos\SpeakingLanguage\Paging\obj\Debug\Paging.csprojResolveAssemblyReference.cache
+C:\Users\dkwke\source\repos\SpeakingLanguage\Paging\obj\Debug\SpeakingLanguage.Paging.dll
+C:\Users\dkwke\source\repos\SpeakingLanguage\Paging\obj\Debug\SpeakingLanguage.Paging.pdb
+C:\Users\dkwke\source\repos\SpeakingLanguage\Paging\bin\Debug\Core.dll
+C:\Users\dkwke\source\repos\SpeakingLanguage\Paging\bin\Debug\Core.pdb

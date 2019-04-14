@@ -1,0 +1,24 @@
+[
+	{
+		"key" : "player",
+		"order" : [
+			"left 10 -> render spriteanimation_0",
+			"test -> test... what do i for you?"
+		]
+	},
+]
+
+// command
+{
+	"player" : 
+	[
+		"left=10&health=100 -> render spriteanimation_0",
+		"test -> test... what do i for you?"
+	]
+},
+
+// metadata
+{
+	"player" : [ 0, 1024 ],
+	"monster01" : [ 1024, 1024 ],
+},

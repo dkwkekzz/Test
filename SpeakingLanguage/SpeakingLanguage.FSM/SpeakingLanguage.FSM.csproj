@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7485B1A9-2DF0-455C-B753-F6415F97D911}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SpeakingLanguage.FSM</RootNamespace>
+    <AssemblyName>SpeakingLanguage.FSM</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Config.cs" />
+    <Compile Include="Internal\CellDictionary.cs" />
+    <Compile Include="LinkMachine.cs" />
+    <Compile Include="Temp\Entity.cs" />
+    <Compile Include="Temp\EventTree.cs" />
+    <Compile Include="Temp\StateRunner.cs" />
+    <Compile Include="Temp\PropertyTree.cs" />
+    <Compile Include="Temp\SharedContext.cs" />
+    <Compile Include="Internal\State.cs" />
+    <Compile Include="Temp\StateContext.cs" />
+    <Compile Include="Internal\StateDictionary.cs" />
+    <Compile Include="Internal\EventDictionary.cs" />
+    <Compile Include="Temp\StateGraph2.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StateMachine.cs" />
+    <Compile Include="Temp\StateGraph.cs" />
+    <Compile Include="Internal\TransitionData.cs" />
+    <Compile Include="Transition.cs" />
+    <Compile Include="Temp\Transposer.cs" />
+    <Compile Include="Temp\ValueSet.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpeakingLanguage.Component\SpeakingLanguage.Component.csproj">
+      <Project>{64935302-0148-49d6-a13a-6d6d975172bd}</Project>
+      <Name>SpeakingLanguage.Component</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpeakingLanguage.DataManagement\SpeakingLanguage.DataManagement.csproj">
+      <Project>{d42b35da-a674-4299-a839-f1842f13115f}</Project>
+      <Name>SpeakingLanguage.DataManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpeakingLanguage.Library\SpeakingLanguage.Library.csproj">
+      <Project>{aad28eed-2523-428d-af3c-59079f0ff3cf}</Project>
+      <Name>SpeakingLanguage.Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

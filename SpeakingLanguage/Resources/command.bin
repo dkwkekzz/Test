@@ -1,0 +1,10 @@
+{
+  "id": "Luna",
+  "name": "Silver",
+  "age": 19,
+  "friend": {
+    "id": "Luna",
+    "name": "Silver",
+    "age": 19
+  }
+}

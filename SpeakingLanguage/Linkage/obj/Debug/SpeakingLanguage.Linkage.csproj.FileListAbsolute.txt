@@ -1,0 +1,12 @@
+C:\Users\dkwke\source\repos\SpeakingLanguage\Linkage\bin\Debug\SpeakingLanguage.Linkage.dll
+C:\Users\dkwke\source\repos\SpeakingLanguage\Linkage\bin\Debug\SpeakingLanguage.Linkage.pdb
+C:\Users\dkwke\source\repos\SpeakingLanguage\Linkage\bin\Debug\SpeakingLanguage.Core.dll
+C:\Users\dkwke\source\repos\SpeakingLanguage\Linkage\bin\Debug\SpeakingLanguage.Library.dll
+C:\Users\dkwke\source\repos\SpeakingLanguage\Linkage\bin\Debug\Newtonsoft.Json.dll
+C:\Users\dkwke\source\repos\SpeakingLanguage\Linkage\bin\Debug\SpeakingLanguage.Core.pdb
+C:\Users\dkwke\source\repos\SpeakingLanguage\Linkage\bin\Debug\SpeakingLanguage.Library.pdb
+C:\Users\dkwke\source\repos\SpeakingLanguage\Linkage\bin\Debug\Newtonsoft.Json.xml
+C:\Users\dkwke\source\repos\SpeakingLanguage\Linkage\obj\Debug\SpeakingLanguage.Linkage.csprojResolveAssemblyReference.cache
+C:\Users\dkwke\source\repos\SpeakingLanguage\Linkage\obj\Debug\SpeakingLanguage.Linkage.csproj.CoreCompileInputs.cache
+C:\Users\dkwke\source\repos\SpeakingLanguage\Linkage\obj\Debug\SpeakingLanguage.Linkage.dll
+C:\Users\dkwke\source\repos\SpeakingLanguage\Linkage\obj\Debug\SpeakingLanguage.Linkage.pdb

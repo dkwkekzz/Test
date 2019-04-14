@@ -1,0 +1,4 @@
+C:\Users\dkwke\source\repos\SpeakingLanguage\Compile\obj\Debug\SpeakingLanguage.Compile.csprojResolveAssemblyReference.cache
+C:\Users\dkwke\source\repos\SpeakingLanguage\Compile\obj\Debug\SpeakingLanguage.Compile.csproj.CoreCompileInputs.cache
+C:\Users\dkwke\source\repos\SpeakingLanguage\Compile\obj\Debug\SpeakingLanguage.Compile.dll
+C:\Users\dkwke\source\repos\SpeakingLanguage\Compile\obj\Debug\SpeakingLanguage.Compile.pdb
