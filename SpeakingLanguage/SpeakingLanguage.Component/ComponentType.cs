@@ -7,14 +7,17 @@ namespace SpeakingLanguage.Component
     {
         None = 0,
         Root,
-        DataTable,
-        DataRow,
-        Behaviour,
+        Package,
+        Service,
         Session,
         Observer,
-        State,
+        StreamingWriter,
+        World,
         Actor,
+        Behaviour,
+        State,
         Cell,
+        Executor,
         __MAX__
     }
 }

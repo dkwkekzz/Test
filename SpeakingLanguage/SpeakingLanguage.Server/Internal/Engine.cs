@@ -1,62 +1,102 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SpeakingLanguage.Server
 {
-    sealed class Engine
+    class Engine
     {
-        sealed class EngineState : IEquatable<EngineState>
+        enum EState
         {
-            public const int CLOSING = 0;
-            public const int RUNNING = 1;
-
-            public int Value { get; set; }
-            
-            public bool Equals(EngineState other) => Value == other.Value;
-            public override bool Equals(object other) => Value == ((EngineState)other).Value;
-            public override int GetHashCode() => Value;
-            public static bool operator ==(EngineState lhs, EngineState rhs) => lhs.Value == rhs.Value;
-            public static bool operator !=(EngineState lhs, EngineState rhs) => lhs.Value != rhs.Value;
+            None = 0,
+            Running,
+            Closing,
+            Closed,
         }
 
-        private readonly EngineState _state = new EngineState();
-
-        public void Start(int endPoint, int frequency)
+        sealed class EngineState : IEquatable<EngineState>
         {
+            public readonly int EndPoint;
+            public readonly int Frequency;
+            private EState _eState;
+
+            public EngineState(int endPoint, int frequency)
+            {
+                EndPoint = endPoint;
+                Frequency = frequency;
+                _eState = EState.Closed;
+            }
+
+            public bool Is(EState s) => _eState == s;
+            public void Set(EState s) => _eState = s;
+            public bool Equals(EngineState other) => _eState == other._eState;
+            public override bool Equals(object other) => _eState == ((EngineState)other)._eState;
+            public override int GetHashCode() => (int)_eState;
+            public override string ToString() => $"[EngineState] ep:{EndPoint.ToString()}/state:{_eState.ToString()}";
+            public static bool operator ==(EngineState lhs, EngineState rhs) => lhs._eState == rhs._eState;
+            public static bool operator !=(EngineState lhs, EngineState rhs) => lhs._eState != rhs._eState;
+        }
+
+        private readonly EngineState _state;
+
+        public Engine(int endPoint, int frequency)
+        {
+            _state = new EngineState(endPoint, frequency);
+        }
+        
+        public void Start(Component.SLComponent root, params Type[] templates)
+        {
+            if (!_state.Is(EState.Closed))
+                throw new InvalidOperationException($"wrong state: {_state.ToString()}");
+            
             Task.Factory.StartNew(() =>
             {
-                var sm = new FSM.StateMachine(endPoint);
-
-                _state.Value = EngineState.RUNNING;
-                while (_state.Value == EngineState.RUNNING)
+                var fq = _state.Frequency;
+                var dispatcher = new Execution.Terminal.RawDispatcher(_state.EndPoint);
+                var executorList = new List<Execution.ISLExecutor>(templates.Length);
+                for (int i = 0; i != templates.Length; i++)
+                {
+                    var exe = (Execution.ISLExecutor)Activator.CreateInstance(templates[i]);
+                    executorList.Add(exe);
+                }
+                
+                _state.Set(EState.Running);
+                while (_state.Is(EState.Running))
                 {
                     var begin = Library.Ticker.MS;
                     try
                     {
-                        sm.ExecuteFrame();
+                        for (int i = 0; i != executorList.Count; i++)
+                        {
+                            try
+                            {
+                                executorList[i].ExecuteFrame(ref dispatcher, root);
+                            }
+                            catch (ArgumentException e) { Library.Logger.Error($"{_state.ToString()}\n[Engine::{executorList[i].GetType().Name}]\n{e.Message}\n{e.StackTrace}"); }
+                            catch (KeyNotFoundException e) { Library.Logger.Error($"{_state.ToString()}\n[Engine::{executorList[i].GetType().Name}]\n{e.Message}\n{e.StackTrace}"); }
+                            catch (Exception) { Library.Logger.Error($"{_state.ToString()}\n[Engine::{executorList[i].GetType().Name}]\n"); throw; }
+                        }
                     }
-                    catch (NotImplementedException e) { Library.Logger.Error($"[Server.Engine] {e.Message}/{e.StackTrace}"); }
-                    catch (ArgumentException e) { Library.Logger.Error($"[Server.Engine] {e.Message}/{e.StackTrace}"); }
-                    catch (Exception e) { Library.Logger.Error($"[Server.Engine] {e.Message}/{e.StackTrace}"); }
+                    catch (Exception e) { Library.Logger.Exception(typeof(Engine), e); }
                     finally
                     {
                         var end = Library.Ticker.MS;
-                        int leg = (int)(end - begin) - frequency;
+                        int leg = (int)(end - begin) - fq;
                         if (leg < 0)
                         {
                             Thread.Sleep(-leg);
                         }
                     }
                 }
+
+                _state.Set(EState.Closed);
             });
         }
 
         public void Stop()
         {
-            _state.Value = EngineState.CLOSING;
+            _state.Set(EState.Closing);
         }
     }
 }

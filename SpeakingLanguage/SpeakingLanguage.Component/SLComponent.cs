@@ -4,27 +4,29 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace SpeakingLanguage.Component
 {
     public unsafe partial class SLComponent : IEquatable<SLComponent>, IComparable<SLComponent>, IEnumerable<SLComponent>, ISerializable
     {
-        public static SLComponent Root { get; } = _factory.GetObject().onTake(ComponentType.Root, _factory.GenerateIndex);
-        public static SLComponent FakeRoot { get; } = _factory.GetObject().onTake(ComponentType.Root, _factory.GenerateIndex);
+        public static ComponentPool Factory { get; } = new ComponentPool(Config.MAX_COUNT_SLC);
+        //public static SLComponent Root { get; } = _factory.GetObject().onTake(ComponentType.Root, _factory.GenerateIndex);
+        //public static SLComponent FakeRoot { get; } = _factory.GetObject().onTake(ComponentType.Root, _factory.GenerateIndex);
 
         private int _index;
         private Dictionary<SLPointer, SLWrapper> _groups = new Dictionary<SLPointer, SLWrapper>();
-        private Dictionary<Type, IntPtr> _props = new Dictionary<Type, IntPtr>();
+        private Dictionary<Type, IntPtr> _props;
         private Type _cachedType;
         private IntPtr _cachedPtr;
 
         public ComponentType Type { get; private set; }
-        public object Context { get; private set; }
+        public object Context { get; set; }
 
         #region INTERFACE
-        public int CompareTo(SLComponent other) => _index.CompareTo(other._index);
-        public bool Equals(SLComponent other) => _index == other._index;
-        public override bool Equals(object obj) => Equals((SLComponent)obj);
+        public int CompareTo(SLComponent other) => other == null ? 1 : _index.CompareTo(other._index);
+        public bool Equals(SLComponent other) => other == null ? false : _index == other._index;
+        public override bool Equals(object obj) => obj == null ? false : Equals((SLComponent)obj);
         public override int GetHashCode() => _index;
         public override string ToString() => $"[SLComponent] Type:{this.Type.ToString()}, Index:{_index.ToString()}";
         
@@ -47,8 +49,7 @@ namespace SpeakingLanguage.Component
             var gIter = _groups.GetEnumerator();
             while (gIter.MoveNext())
             {
-                writer.WriteInt((int)gIter.Current.Key.type);
-                writer.WriteInt(gIter.Current.Key.value);
+                gIter.Current.Key.OnSerialized(ref writer);
 
                 var wrapper = gIter.Current.Value;
                 writer.WriteInt(wrapper.Count);
@@ -59,23 +60,30 @@ namespace SpeakingLanguage.Component
                 }
             }
 
-            writer.WriteInt(_props.Count);
-            var pIter = _props.GetEnumerator();
-            while (pIter.MoveNext())
+            if (null != _props)
             {
-                var type = pIter.Current.Key;
-                var attr = type.GetCustomAttributes(false)[0] as Property.PropertyAttribute;
-                var index = attr.Index;
-                var size = attr.Size;
-                writer.WriteInt(index);
-                writer.WriteInt(size);
+                writer.WriteInt(_props.Count);
+                var pIter = _props.GetEnumerator();
+                while (pIter.MoveNext())
+                {
+                    var type = pIter.Current.Key;
+                    var attr = type.GetCustomAttributes(false)[0] as Property.PropertyAttribute;
+                    var index = attr.Index;
+                    var size = attr.Size;
+                    writer.WriteInt(index);
+                    writer.WriteInt(size);
 
-                var ptr = pIter.Current.Value;
-                writer.WriteMemory(ptr.ToPointer(), size);
+                    var ptr = pIter.Current.Value;
+                    writer.WriteMemory(ptr.ToPointer(), size);
+                }
+            }
+            else
+            {
+                writer.WriteInt(0);
             }
         }
 
-        public void OnDeserialized(ref Library.Reader reader)
+        public void OnDeserialized(ref Library.Reader reader, SLComponent streamingComponent)
         {
             var read = true;
             read &= reader.ReadInt(out int groupCount);
@@ -83,20 +91,19 @@ namespace SpeakingLanguage.Component
 
             for (int i = 0; i != groupCount; i++)
             {
-                read &= reader.ReadInt(out int type);
-                read &= reader.ReadInt(out int value);
+                var ptr = new SLPointer();
+                ptr.OnDeserialized(ref reader, null);
+
                 read &= reader.ReadInt(out int childCount);
                 Library.Logger.Assert(read, "[OnDeserialized] fail to read component: type|value|rootFakeIndex|childCount");
 
-                var ptr = new SLPointer { type = (PointerType)type, value = value };
                 var wrapper = new SLWrapper();
-
                 for (int k = 0; k != childCount; k++)
                 {
                     read &= reader.ReadInt(out int fakeIndex);
                     Library.Logger.Assert(read, "[OnDeserialized] fail to read component: fakeIndex");
 
-                    var child = SLComponent.FakeRoot.Find(fakeIndex);
+                    var child = streamingComponent.Find(fakeIndex);
                     wrapper.Add(child.First());
                 }
 
@@ -121,15 +128,32 @@ namespace SpeakingLanguage.Component
             }
         }
         #endregion
+        
+        public static bool operator ==(SLComponent lhs, SLComponent rhs)
+        {
+            if (Object.ReferenceEquals(lhs, null))
+            {
+                if (Object.ReferenceEquals(rhs, null))
+                    return true;
+
+                return false;
+            }
+
+            return lhs.Equals(rhs);
+        }
+        public static bool operator !=(SLComponent lhs, SLComponent rhs) => !(lhs == rhs);
 
         public int GroupCount => _groups.Count;
-        public int PropertyCount => _props.Count;
+        public int PropertyCount => _props?.Count ?? 0;
         public SLWrapper Find(ComponentType type) => _groups[SLPointer.Type(type)];
         public SLWrapper Find(int handle) => _groups[SLPointer.Handle(handle)];
+        public SLWrapper Find(string key) => _groups[SLPointer.Text(key)];
         public SLWrapper Find(object key) => _groups[SLPointer.Reference(key)];
-        public bool TryFind(ComponentType type, out SLWrapper com) => _groups.TryGetValue(SLPointer.Type(type), out com);
-        public bool TryFind(int handle, out SLWrapper com) => _groups.TryGetValue(SLPointer.Handle(handle), out com);
-        public bool TryFind(object key, out SLWrapper com) => _groups.TryGetValue(SLPointer.Reference(key), out com);
+        public bool TryFind(ComponentType type, out SLWrapper wrap) => _groups.TryGetValue(SLPointer.Type(type), out wrap);
+        public bool TryFind(int handle, out SLWrapper wrap) => _groups.TryGetValue(SLPointer.Handle(handle), out wrap);
+        public bool TryFind(string key, out SLWrapper wrap) => _groups.TryGetValue(SLPointer.Text(key), out wrap);
+        public bool TryFind(object key, out SLWrapper wrap) => _groups.TryGetValue(SLPointer.Reference(key), out wrap);
+        public Dictionary<SLPointer, SLWrapper>.ValueCollection.Enumerator GetGroupEnumerator() => _groups.Values.GetEnumerator();
 
         public void Traversal(Dictionary<int, SLComponent> list)
         {
@@ -148,13 +172,7 @@ namespace SpeakingLanguage.Component
                 }
             }
         }
-
-        public SLComponent Attach(object context)
-        {
-            Context = context;
-            return this;
-        }
-
+        
         public void LinkTo(SLComponent com)
         {
             var ptr = SLPointer.Type(com.Type);
@@ -167,16 +185,23 @@ namespace SpeakingLanguage.Component
             insert(ref ptr, com);
         }
 
+        public void LinkTo(string key, SLComponent com)
+        {
+            var ptr = SLPointer.Text(key);
+            insert(ref ptr, com);
+        }
+
         public void LinkTo(object key, SLComponent com)
         {
-            var gch = GCHandle.Alloc(key, GCHandleType.Weak);
-            var gcp = GCHandle.ToIntPtr(gch);
-            var ptr = SLPointer.Reference(gcp);
+            var ptr = SLPointer.Reference(key);
             insert(ref ptr, com);
         }
 
         private void insert(ref SLPointer ptr, SLComponent com)
         {
+            if (null == com)
+                throw new ArgumentNullException($"[{this.ToString()}] this com can't link to null component.");
+
             if (!_groups.TryGetValue(ptr, out SLWrapper wrapper))
             {
                 wrapper = new SLWrapper(com);
@@ -191,18 +216,29 @@ namespace SpeakingLanguage.Component
         public void UnlinkTo(ComponentType type)
         {
             var ptr = SLPointer.Type(type);
-            _groups.Remove(ptr);
+            remove(ref ptr);
         }
 
         public void UnlinkTo(int handle)
         {
             var ptr = SLPointer.Handle(handle);
-            _groups.Remove(ptr);
+            remove(ref ptr);
+        }
+
+        public void UnlinkTo(string key)
+        {
+            var ptr = SLPointer.Text(key);
+            remove(ref ptr);
         }
 
         public void UnlinkTo(object key)
         {
             var ptr = SLPointer.Reference(key);
+            remove(ref ptr);
+        }
+
+        private void remove(ref SLPointer ptr)
+        {
             _groups.Remove(ptr);
         }
 
@@ -215,35 +251,61 @@ namespace SpeakingLanguage.Component
         {
             if (_cachedType == propType)
                 return _cachedPtr;
-
-            if (!_props.TryGetValue(propType, out IntPtr ptr))
+            
+            if (null == _cachedType)
             {
-                ptr = Allocator.Calloc(propType);
-                _props.Add(propType, ptr);
+                _cachedPtr = Allocator.Calloc(propType);
             }
+            else
+            {
+                if (null == _props)
+                {
+                    _props = new Dictionary<Type, IntPtr>();
+                    _props.Add(_cachedType, _cachedPtr);
+                }
 
+                if (!_props.TryGetValue(propType, out _cachedPtr))
+                {
+                    _cachedPtr = Allocator.Calloc(propType);
+                    _props.Add(propType, _cachedPtr);
+                }
+            }
+            
             _cachedType = propType;
-            return _cachedPtr = ptr;
+            return _cachedPtr;
         }
 
         public void Sweep()
         {
-            var temp = stackalloc SLPointer[_groups.Values.Count];
-            var ti = 0;
+            var stack = new Stack<SLPointer>(_groups.Count);
             var iter = _groups.GetEnumerator();
             while (iter.MoveNext())
             {
                 var group = iter.Current.Value;
                 if (0 == group.Sweep())
-                    temp[ti++] = iter.Current.Key;
+                    stack.Push(iter.Current.Key);
             }
 
-            while (0 <= --ti)
+            while (stack.Count > 0)
             {
-                _groups.Remove(temp[ti]);
+                _groups.Remove(stack.Pop());
             }
+            //var temp = stackalloc SLPointer[_groups.Values.Count];
+            //var ti = 0;
+            //var iter = _groups.GetEnumerator();
+            //while (iter.MoveNext())
+            //{
+            //    var group = iter.Current.Value;
+            //    if (0 == group.Sweep())
+            //        temp[ti++] = iter.Current.Key;
+            //}
+
+            //while (0 <= --ti)
+            //{
+            //    _groups.Remove(temp[ti]);
+            //}
         }
-        
+
         public void Sweep(ComponentType type)
         {
             var ptr = SLPointer.Type(type);
@@ -256,8 +318,22 @@ namespace SpeakingLanguage.Component
             }
         }
 
+        public void Clear()
+        {
+            _groups.Clear();
+
+            var pIter = _props.GetEnumerator();
+            while (pIter.MoveNext())
+            {
+                Allocator.Cfree(pIter.Current.Key, pIter.Current.Value, false);
+            }
+            _props.Clear();
+        }
+
         private SLComponent onTake(ComponentType type, int index)
         {
+            Library.Logger.Assert(this.Type == ComponentType.None);
+
             this.Type = type;
             this._index = index;
             return this;
@@ -267,16 +343,7 @@ namespace SpeakingLanguage.Component
         {
             this.Type = ComponentType.None;
             this.Context = null;
-            
-            var pIter = _props.GetEnumerator();
-            while (pIter.MoveNext())
-            {
-                Allocator.Cfree(pIter.Current.Key, pIter.Current.Value, false);
-            }
-
-            _groups.Clear();
-            _props.Clear();
-
+            this.Clear();
             return this;
         }
     }

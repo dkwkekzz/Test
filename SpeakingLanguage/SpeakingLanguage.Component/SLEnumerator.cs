@@ -16,7 +16,7 @@ namespace SpeakingLanguage.Component
         {
             _root = coms[0];
             _coms = coms;
-            _index = 0;
+            _index = -1;
             Current = null;
         }
 
@@ -24,7 +24,7 @@ namespace SpeakingLanguage.Component
         {
             _root = com;
             _coms = null;
-            _index = 0;
+            _index = -1;
             Current = null;
         }
 
@@ -36,10 +36,25 @@ namespace SpeakingLanguage.Component
                 return _index++ < 1;
             }
 
-            if (_index >= _coms.Count)
+            if (++_index >= _coms.Count)
                 return false;
 
-            Current = _coms[_index++];
+            Current = _coms[_index];
+            if (Current.Type == ComponentType.None)
+                return MoveNext();
+
+            return true;
+        }
+
+        public bool Advance(int ofs)
+        {
+            _index += ofs;
+            if (_index >= _coms.Count)
+                return false;
+            if (_index < 0)
+                return false;
+
+            Current = _coms[_index];
             return true;
         }
 
@@ -49,7 +64,7 @@ namespace SpeakingLanguage.Component
 
         public void Reset()
         {
-            _index = 0;
+            _index = -1;
             Current = null;
         }
     }

@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyHelper.cs" />
+    <Compile Include="BoxedWriter.cs" />
     <Compile Include="SerializeHelper.cs" />
     <Compile Include="BitConverter.cs" />
     <Compile Include="CleanManager.cs" />
@@ -56,7 +57,7 @@
     <Compile Include="BufferPool.cs" />
     <Compile Include="LimitedConcurrencyLevelTaskScheduler.cs" />
     <Compile Include="ListPool.cs" />
-    <Compile Include="Logger.cs" />
+    <Compile Include="Manager\Logger.cs" />
     <Compile Include="ManagedDictionary.cs" />
     <Compile Include="Null.cs" />
     <Compile Include="ObjectHelper.cs" />
@@ -64,9 +65,10 @@
     <Compile Include="Reader.cs" />
     <Compile Include="DataStructure\SplayBT.cs" />
     <Compile Include="DataStructure\_SplayBT.cs" />
-    <Compile Include="TaskLogger.cs" />
+    <Compile Include="Manager\TaskLogger.cs" />
     <Compile Include="Math.cs" />
     <Compile Include="KeyObjectPool.cs" />
+    <Compile Include="Service\Locator.cs" />
     <Compile Include="SimpleSpinLock.cs" />
     <Compile Include="Temp\ObjectPool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,7 +78,7 @@
     <Compile Include="Singleton.cs" />
     <Compile Include="StringRefComparer.cs" />
     <Compile Include="TextTraceListener.cs" />
-    <Compile Include="Ticker.cs" />
+    <Compile Include="Manager\Ticker.cs" />
     <Compile Include="TypeDictionary.cs" />
     <Compile Include="TypeHelper.cs" />
     <Compile Include="Utils.cs" />

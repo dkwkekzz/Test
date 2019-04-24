@@ -7,14 +7,12 @@ namespace SpeakingLanguage.Library
 {
     public struct Writer
     {
-        private readonly static Library.BufferPool _pool = new Library.BufferPool();
-
         private byte[] _buffer;
         private int _offset;
         
-        public Writer(int capacity = 1<<6)
+        public Writer(int capacity)
         {
-            _buffer = _pool.GetBuffer(capacity);
+            _buffer = Library.Locator.BufferPool.GetBuffer(capacity);
             _offset = 0;
         }
 
@@ -25,7 +23,7 @@ namespace SpeakingLanguage.Library
 
         public void WriteFailure(int error)
         {
-            WriteBoolean(true);
+            WriteBoolean(false);
             WriteInt(error);
         }
 
@@ -52,6 +50,16 @@ namespace SpeakingLanguage.Library
         public void WriteString(string v)
         {
             Library.BitConverter.GetBytes(_buffer, ref _offset, v);
+        }
+
+        public unsafe void WriteBytes(byte[] v)
+        {
+            fixed (void* vp = &v[0])
+            fixed (void* bp = &_buffer[_offset])
+            {
+                Buffer.MemoryCopy(vp, bp, v.Length, v.Length);
+                _offset += v.Length;
+            }
         }
         
         public unsafe void WriteMemory(void* p, int sz)

@@ -44,29 +44,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internal\ISerializable.cs" />
+    <Compile Include="Property\Service.cs" />
+    <Compile Include="Property\Observer.cs" />
+    <Compile Include="Property\Sweeper.cs" />
+    <Compile Include="SLComponentSynchronization.cs" />
+    <Compile Include="PackageKey.cs" />
     <Compile Include="Property\PropertyAttribute.cs" />
+    <Compile Include="Property\World.cs" />
     <Compile Include="SLEnumerator.cs" />
     <Compile Include="SLPointer.cs" />
     <Compile Include="SLWrapper.cs" />
-    <Compile Include="Temp\ComponentSync.cs" />
     <Compile Include="Internal\Allocator.cs" />
     <Compile Include="ComponentType.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Function.cs" />
     <Compile Include="Property\IProperty.cs" />
-    <Compile Include="Property\Physics.cs" />
+    <Compile Include="Property\Actor.cs" />
     <Compile Include="Property\State.cs" />
-    <Compile Include="Property\Transmission.cs" />
     <Compile Include="Serialization.cs" />
     <Compile Include="SLComponentFactory.cs" />
-    <Compile Include="Temp\Chunk.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="Temp\Graph.cs" />
-    <Compile Include="Temp\Handle.cs" />
     <Compile Include="SLComponent.cs" />
-    <Compile Include="Temp\Mediator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Temp\SimpleLookup.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpeakingLanguage.Library\SpeakingLanguage.Library.csproj">

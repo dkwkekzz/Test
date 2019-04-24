@@ -43,28 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="Internal\Execution\SceneConstructor.cs" />
+    <Compile Include="Internal\Execution\SpreadTransition.cs" />
+    <Compile Include="Internal\Execution\Streamer.cs" />
+    <Compile Include="Internal\Execution\Authentication.cs" />
+    <Compile Include="Internal\Execution\Connection.cs" />
+    <Compile Include="Internal\Execution\SceneSelector.cs" />
     <Compile Include="Internal\Extensions.cs" />
-    <Compile Include="Internal\LocalContext.cs" />
     <Compile Include="Chat.cs" />
-    <Compile Include="Internal\Packet\Lobby\Create.cs" />
-    <Compile Include="Internal\Packet\Lobby\Login.cs" />
-    <Compile Include="Internal\SharedContext.cs" />
     <Compile Include="Internal\Engine.cs" />
-    <Compile Include="Temp\SessionDictionary.cs" />
-    <Compile Include="Internal\Packet\Result.cs" />
-    <Compile Include="Temp\Connection.cs" />
     <Compile Include="Internal\Function.cs" />
-    <Compile Include="Internal\Static\PacketDictionary.cs" />
-    <Compile Include="Temp\Room.cs" />
-    <Compile Include="Lobby.cs" />
-    <Compile Include="Field.cs" />
-    <Compile Include="Internal\Packet\IPacket.cs" />
-    <Compile Include="Internal\Packet\Field\Sync.cs" />
-    <Compile Include="Internal\Packet\Field\Transition.cs" />
+    <Compile Include="WebService.cs" />
+    <Compile Include="World.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Internal\Packet\Validator.cs" />
-    <Compile Include="Temp\VirtualWorld.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -78,9 +71,9 @@
       <Project>{d42b35da-a674-4299-a839-f1842f13115f}</Project>
       <Name>SpeakingLanguage.DataManagement</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SpeakingLanguage.FSM\SpeakingLanguage.FSM.csproj">
+    <ProjectReference Include="..\SpeakingLanguage.Execution\SpeakingLanguage.Execution.csproj">
       <Project>{7485b1a9-2df0-455c-b753-f6415f97d911}</Project>
-      <Name>SpeakingLanguage.FSM</Name>
+      <Name>SpeakingLanguage.Execution</Name>
     </ProjectReference>
     <ProjectReference Include="..\SpeakingLanguage.Library\SpeakingLanguage.Library.csproj">
       <Project>{aad28eed-2523-428d-af3c-59079f0ff3cf}</Project>
@@ -95,5 +88,6 @@
       <Name>websocket-sharp</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

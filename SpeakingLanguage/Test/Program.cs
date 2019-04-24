@@ -464,37 +464,67 @@ namespace Test
 
         public static unsafe T* get<T>() where T : unmanaged
         {
-            var type = typeof(T);
-            var nextStateCom = SpeakingLanguage.Component.SLComponent.Create(SpeakingLanguage.Component.ComponentType.State);
-            return (T*)(nextStateCom.Get(type));
+            //var type = typeof(T);
+            //var nextStateCom = SpeakingLanguage.Component.SLComponent.Create(SpeakingLanguage.Component.ComponentType.State);
+            //return (T*)(nextStateCom.Get(type));
         }
 
         public static void abc()
         {
         }
 
-        static void TestBuildTable()
+        //static void TestBuildTable()
+        //{
+        //    var tableCom = SpeakingLanguage.Component.SLComponent.Create(SpeakingLanguage.Component.ComponentType.DataTable);
+        //    var rowCom1 = SpeakingLanguage.Component.SLComponent.Create(SpeakingLanguage.Component.ComponentType.DataRow);
+        //    var userInfo1 = new SpeakingLanguage.DataManagement.Table.Identifier();
+        //    userInfo1.handle = 1;
+        //    userInfo1.id = "ytk";
+        //    userInfo1.pwd = "123";
+        //    userInfo1.lastConnectionTime = DateTime.Now;
+        //    rowCom1.Attach(userInfo1);
+
+        //    var rowCom2 = SpeakingLanguage.Component.SLComponent.Create(SpeakingLanguage.Component.ComponentType.DataRow);
+        //    var userInfo2 = new SpeakingLanguage.DataManagement.Table.Identifier();
+        //    userInfo2.handle = 2;
+        //    userInfo2.id = "kj";
+        //    userInfo2.pwd = "123";
+        //    userInfo2.lastConnectionTime = DateTime.Now;
+        //    rowCom2.Attach(userInfo2);
+
+        //}
+        class Test
         {
-            var tableCom = SpeakingLanguage.Component.SLComponent.Create(SpeakingLanguage.Component.ComponentType.DataTable);
-            var rowCom1 = SpeakingLanguage.Component.SLComponent.Create(SpeakingLanguage.Component.ComponentType.DataRow);
-            var userInfo1 = new SpeakingLanguage.DataManagement.Table.Identifier();
-            userInfo1.handle = 1;
-            userInfo1.id = "ytk";
-            userInfo1.pwd = "123";
-            userInfo1.lastConnectionTime = DateTime.Now;
-            rowCom1.Attach(userInfo1);
+            public static string x = EchoAndReturn ("In type initializer");
 
-            var rowCom2 = SpeakingLanguage.Component.SLComponent.Create(SpeakingLanguage.Component.ComponentType.DataRow);
-            var userInfo2 = new SpeakingLanguage.DataManagement.Table.Identifier();
-            userInfo2.handle = 2;
-            userInfo2.id = "kj";
-            userInfo2.pwd = "123";
-            userInfo2.lastConnectionTime = DateTime.Now;
-            rowCom2.Attach(userInfo2);
+            static Test() { }
 
+            public static string EchoAndReturn (string s)
+            {
+                Console.WriteLine (s);
+                return s;
+            }
+        }
+        
+        class Driver
+        {
+            public static void Main()
+            {
+                Console.WriteLine("Starting Main");
+                // Invoke a static method on Test
+                Test.EchoAndReturn("Echo!");
+                Console.WriteLine("After echo");
+                // Reference a static field in Test
+                string y = Test.x;
+                // Use the value just to avoid compiler cleverness
+                if (y != null)
+                {
+                    Console.WriteLine("After field access");
+                }
+            }
         }
 
-        static unsafe void Main(string[] args)
+        static unsafe void Main2(string[] args)
         {
             Console.WriteLine("test begin.");
             
@@ -504,15 +534,12 @@ namespace Test
             var nextStateCom = SpeakingLanguage.Component.SLComponent.Create(SpeakingLanguage.Component.ComponentType.State);
             var observerCom = SpeakingLanguage.Component.SLComponent.Create(SpeakingLanguage.Component.ComponentType.Observer);
             var sessionCom = SpeakingLanguage.Component.SLComponent.Create(SpeakingLanguage.Component.ComponentType.Session);
-            SpeakingLanguage.Component.Function.BidirectLink(nextStateCom, observerCom);
-            SpeakingLanguage.Component.Function.BidirectLink(observerCom, sessionCom);
+            SpeakingLanguage.Component.Function.BidLink(nextStateCom, observerCom);
+            SpeakingLanguage.Component.Function.BidLink(observerCom, sessionCom);
             var transProp = observerCom.Get<SpeakingLanguage.Component.Property.Transmission>();
             transProp->lastEventTick = 9999;
 
             var nextStateProp = (SpeakingLanguage.Component.Property.State*)(nextStateCom.Get(type));
-            nextStateProp->prev = null;
-            nextStateProp->actorHandle = 1;
-            nextStateProp->refHandle = 2;
             nextStateProp->transposedTick = -1;    // 아직 전이되지 않음
             nextStateProp->lastTick = 3;
 
@@ -533,7 +560,6 @@ namespace Test
             
             timer.Stop();
             Console.WriteLine($"elapsed:{timer.ElapsedMilliseconds.ToString()}");
-            Console.WriteLine($"ret.actorHandle:{newCom.Get<SpeakingLanguage.Component.Property.State>()->actorHandle.ToString()}");
             Console.WriteLine($"ret.lastEventTick:{newCom.Find(SpeakingLanguage.Component.ComponentType.Observer).First().Get<SpeakingLanguage.Component.Property.Transmission>()->lastEventTick.ToString()}");
             Console.WriteLine($"ret.pwd:{(newCom.Context as SpeakingLanguage.DataManagement.Table.Identifier).pwd}");
 

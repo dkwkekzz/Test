@@ -59,29 +59,13 @@ namespace SpeakingLanguage.Component
             }
         }
         
-        //private static void collectContext(SLComponent com, Dictionary<int, object> ctxDic)
-        //{
-        //    if (null != com.Context && Attribute.IsDefined(com.Context.GetType(), typeof(SerializableAttribute)))
-        //        ctxDic.Add(com._index, com.Context);
-
-        //    var iter = com.GetGroupPairEnumerator();
-        //    while (iter.MoveNext())
-        //    {
-        //        var list = iter.Current.Value;
-        //        var listIter = list.GetEnumerator();
-        //        {
-        //            var inner = listIter.Current;
-        //            collectContext(inner, ctxDic);
-        //        }
-        //    }
-        //}
-
         public static SLComponent ReadComponent(ref Library.Reader reader)
         {
             var read = reader.ReadInt(out int comCount);
             if (!read)
                 return null;
 
+            var fakeRoot = SLComponent.Factory.Create(null, ComponentType.Root);
             var comList = new List<SLComponent>(comCount);
             for (int i = 0; i != comCount; i++)
             {
@@ -90,15 +74,13 @@ namespace SpeakingLanguage.Component
                 if (!read)
                     return null;
 
-                var com = SLComponent.Create((ComponentType)comType);
-                SLComponent.FakeRoot.LinkTo(fakeIndex, com);
-
+                var com = SLComponent.Factory.Create(fakeRoot, (ComponentType)comType, fakeIndex);
                 comList.Add(com);
             }
             
             for (int i = 0; i != comList.Count; i++)
             {
-                comList[i].OnDeserialized(ref reader);
+                comList[i].OnDeserialized(ref reader, fakeRoot);
             }
 
             read &= reader.ReadInt(out int ctxCount);
@@ -113,10 +95,12 @@ namespace SpeakingLanguage.Component
                 var ctxIter = ctxList.GetEnumerator();
                 while (ctxIter.MoveNext())
                 {
-                    var com3 = SLComponent.FakeRoot.Find(ctxIter.Current.Key).First();
-                    com3.Attach(ctxIter.Current.Value);
+                    var com3 = fakeRoot.Find(ctxIter.Current.Key).First();
+                    com3.Context = ctxIter.Current.Value;
                 }
             }
+
+            SLComponent.Factory.Destroy(null, fakeRoot);
 
             return comList[0];
         }

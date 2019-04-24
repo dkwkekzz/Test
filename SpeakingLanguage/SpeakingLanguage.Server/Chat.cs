@@ -5,12 +5,8 @@ using WebSocketSharp.Server;
 
 namespace SpeakingLanguage.Server
 {
-    public class Chat : WebSocketBehavior
+    public class Chat : WebService
     {
-        protected override void OnOpen()
-        {
-        }
-
         protected override void OnMessage(MessageEventArgs e)
         {
             if (!e.IsText)
@@ -21,10 +17,6 @@ namespace SpeakingLanguage.Server
             return;
         }
 
-        protected override void OnClose(CloseEventArgs e)
-        {
-        }
-        
         protected override void OnError(ErrorEventArgs e)
         {
         }

@@ -10,90 +10,114 @@ namespace SpeakingLanguage.Component
 {
     public partial class SLComponent
     {
-        private readonly static Library.ObjectPool<SLComponent> _factory
-            = new Library.ObjectPool<SLComponent>(Config.MAX_COUNT_SLC, () => new SLComponent());
-        private readonly static Library.BufferPool _bfFactory = new Library.BufferPool();
-
-        public static SLComponent Create(ComponentType type)
+        public class ComponentPool
         {
-            var com = _factory.GetObject().onTake(type, _factory.GenerateIndex);
-            prelink(com);
-            return com;
-        }
-
-        public static SLComponent Create(ComponentType type, int handle)
-        {
-            var com = _factory.GetObject().onTake(type, _factory.GenerateIndex);
-            prelink(com);
-            Root.LinkTo(handle, com);
-            return com;
-        }
-
-        public static SLComponent Create(ComponentType type, object key)
-        {
-            var com = _factory.GetObject().onTake(type, _factory.GenerateIndex);
-            prelink(com);
-            Root.LinkTo(key, com);
-            return com;
-        }
-
-        private static void prelink(SLComponent com)
-        {
-            Root.LinkTo(com);
-            var ptr = SLPointer.Index(com._index);
-            com.insert(ref ptr, com);
-        }
-
-        public static bool Destroy(int handle)
-        {
-            if (!Root.TryFind(handle, out SLWrapper wrapper))
-                return false;
-
-            _factory.PutObject(wrapper.First().onRelease());
-            return true;
-        }
-
-        public static bool Destroy(object key)
-        {
-            if (!Root.TryFind(key, out SLWrapper wrapper))
-                return false;
-
-            _factory.PutObject(wrapper.First().onRelease());
-            return true;
-        }
-
-        public static void Destroy(SLComponent com)
-        {
-            _factory.PutObject(com.onRelease());
-        }
-
-        public static async Task<SLComponent> LoadAsync(string name)
-        {
-            var path = $"{name}.slc";
-            if (!File.Exists(path))
-                return null;
-
-            using (var fs = File.OpenRead(path))
+            private readonly Library.ObjectPool<SLComponent> _pool;
+            
+            public ComponentPool(int capacity)
             {
-                var buffer = _bfFactory.GetBuffer(1 << 16);
-                Trace.Assert(buffer.Length >= fs.Length, "overflow buffer");
+                _pool = new Library.ObjectPool<SLComponent>(capacity, () => new SLComponent());
+            }
+            
+            public SLComponent Create(SLComponent root, ComponentType type)
+            {
+                var com = _pool.GetObject().onTake(type, _pool.GenerateIndex);
+                if (null != root)
+                {
+                    defaultLink(root, com);
+                    unsafe
+                    {
+                        var serviceProp = root.Get<Property.Service>();
+                        serviceProp->createCount++;
+                    }
+                }
+                
+                return com;
+            }
 
-                var n = await fs.ReadAsync(buffer, 0, (int)fs.Length);
-                if (n == 0)
+            private void defaultLink(SLComponent root, SLComponent com)
+            {
+                root.LinkTo(com);
+                var ptr = SLPointer.Index(com._index);
+                root.insert(ref ptr, com);
+            }
+
+            public SLComponent Create(SLComponent root, ComponentType type, int handle)
+            {
+                var com = Create(root, type);
+                root.LinkTo(handle, com);
+                return com;
+            }
+
+            public SLComponent Create(SLComponent root, ComponentType type, string key)
+            {
+                var com = Create(root, type);
+                root.LinkTo(key, com);
+                return com;
+            }
+            
+            public void Destroy(SLComponent root, SLComponent com)
+            {
+                if (null != root)
+                {
+                    unsafe
+                    {
+                        var serviceProp = root.Get<Property.Service>();
+                        serviceProp->destroyCount++;
+                    }
+                }
+
+                _pool.PutObject(com.onRelease());
+            }
+
+            public bool Destroy(SLComponent root, int handle)
+            {
+                if (!root.TryFind(handle, out SLWrapper wrapper))
+                    return false;
+
+                Destroy(root, wrapper);
+                return true;
+            }
+
+            public bool Destroy(SLComponent root, string key)
+            {
+                if (!root.TryFind(key, out SLWrapper wrapper))
+                    return false;
+
+                Destroy(root, wrapper);
+                return true;
+            }
+            
+            public async Task<SLComponent> LoadAsync(SLComponent root, string name)
+            {
+                var path = $"{name}.slc";
+                if (!File.Exists(path))
                     return null;
 
-                var reader = new Library.Reader(buffer, n);
-                return Serialization.ReadComponent(ref reader);
-            }
-        }
+                using (var fs = File.OpenRead(path))
+                {
+                    var buffer = Library.Locator.BufferPool.GetBuffer(1 << 16);
+                    Library.Logger.Assert(buffer.Length >= fs.Length, "overflow buffer");
 
-        public static async Task SaveAsync(SLComponent com, string name)
-        {
-            using (var fs = File.OpenWrite($"{name}.slc"))
+                    var n = await fs.ReadAsync(buffer, 0, (int)fs.Length);
+                    if (n == 0)
+                        return null;
+                    
+                    var reader = new Library.Reader(buffer, n);
+                    var com = Serialization.ReadComponent(ref reader);
+                    defaultLink(root, com);
+                    return com;
+                }
+            }
+
+            public async Task SaveAsync(SLComponent com, string name)
             {
-                var writer = new Library.Writer(1 << 16);
-                Serialization.WriteComponent(ref writer, com);
-                await writer.FlushAsync(fs);
+                using (var fs = File.OpenWrite($"{name}.slc"))
+                {
+                    var writer = new Library.Writer(1 << 16);
+                    Serialization.WriteComponent(ref writer, com);
+                    await writer.FlushAsync(fs);
+                }
             }
         }
     }

@@ -9,6 +9,6 @@ namespace SpeakingLanguage.Component
     interface ISerializable
     {
         void OnSerialized(ref Library.Writer writer);
-        void OnDeserialized(ref Library.Reader reader);
+        void OnDeserialized(ref Library.Reader reader, SLComponent streamingComponent);
     }
 }

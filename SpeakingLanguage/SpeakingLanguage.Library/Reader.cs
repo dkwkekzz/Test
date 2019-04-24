@@ -122,5 +122,14 @@ namespace SpeakingLanguage.Library
             stream.Position = 0;
             return stream;
         }
+
+        public bool ReadSkip(int len)
+        {
+            if (LengthToRead < len)
+                return false;
+
+            _offset += len;
+            return true;
+        }
     }
 }

@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeakingLanguage.Command.Ev
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeakingLanguage.Physics", "SpeakingLanguage.Physics\SpeakingLanguage.Physics.csproj", "{34FD6A3E-94C1-433C-BDB3-6AB17B519C6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeakingLanguage.FSM", "SpeakingLanguage.FSM\SpeakingLanguage.FSM.csproj", "{7485B1A9-2DF0-455C-B753-F6415F97D911}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeakingLanguage.Library", "SpeakingLanguage.Library\SpeakingLanguage.Library.csproj", "{AAD28EED-2523-428D-AF3C-59079F0FF3CF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeakingLanguage.DataManagement", "SpeakingLanguage.DataManagement\SpeakingLanguage.DataManagement.csproj", "{D42B35DA-A674-4299-A839-F1842F13115F}"
@@ -34,6 +32,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeakingLanguage.Component", "SpeakingLanguage.Component\SpeakingLanguage.Component.csproj", "{64935302-0148-49D6-A13A-6D6D975172BD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeakingLanguage.Protocol", "SpeakingLanguage.Protocol\SpeakingLanguage.Protocol.csproj", "{43F254F6-C062-4754-869E-60726FC9B772}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeakingLanguage.Execution", "SpeakingLanguage.Execution\SpeakingLanguage.Execution.csproj", "{7485B1A9-2DF0-455C-B753-F6415F97D911}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,14 +115,6 @@ Global
 		{34FD6A3E-94C1-433C-BDB3-6AB17B519C6D}.Release_Ubuntu|Any CPU.Build.0 = Release|Any CPU
 		{34FD6A3E-94C1-433C-BDB3-6AB17B519C6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34FD6A3E-94C1-433C-BDB3-6AB17B519C6D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7485B1A9-2DF0-455C-B753-F6415F97D911}.Debug_Ubuntu|Any CPU.ActiveCfg = Debug|Any CPU
-		{7485B1A9-2DF0-455C-B753-F6415F97D911}.Debug_Ubuntu|Any CPU.Build.0 = Debug|Any CPU
-		{7485B1A9-2DF0-455C-B753-F6415F97D911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7485B1A9-2DF0-455C-B753-F6415F97D911}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7485B1A9-2DF0-455C-B753-F6415F97D911}.Release_Ubuntu|Any CPU.ActiveCfg = Release|Any CPU
-		{7485B1A9-2DF0-455C-B753-F6415F97D911}.Release_Ubuntu|Any CPU.Build.0 = Release|Any CPU
-		{7485B1A9-2DF0-455C-B753-F6415F97D911}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7485B1A9-2DF0-455C-B753-F6415F97D911}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AAD28EED-2523-428D-AF3C-59079F0FF3CF}.Debug_Ubuntu|Any CPU.ActiveCfg = Debug|Any CPU
 		{AAD28EED-2523-428D-AF3C-59079F0FF3CF}.Debug_Ubuntu|Any CPU.Build.0 = Debug|Any CPU
 		{AAD28EED-2523-428D-AF3C-59079F0FF3CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -171,6 +163,14 @@ Global
 		{43F254F6-C062-4754-869E-60726FC9B772}.Release_Ubuntu|Any CPU.Build.0 = Release|Any CPU
 		{43F254F6-C062-4754-869E-60726FC9B772}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43F254F6-C062-4754-869E-60726FC9B772}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7485B1A9-2DF0-455C-B753-F6415F97D911}.Debug_Ubuntu|Any CPU.ActiveCfg = Debug|Any CPU
+		{7485B1A9-2DF0-455C-B753-F6415F97D911}.Debug_Ubuntu|Any CPU.Build.0 = Debug|Any CPU
+		{7485B1A9-2DF0-455C-B753-F6415F97D911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7485B1A9-2DF0-455C-B753-F6415F97D911}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7485B1A9-2DF0-455C-B753-F6415F97D911}.Release_Ubuntu|Any CPU.ActiveCfg = Release|Any CPU
+		{7485B1A9-2DF0-455C-B753-F6415F97D911}.Release_Ubuntu|Any CPU.Build.0 = Release|Any CPU
+		{7485B1A9-2DF0-455C-B753-F6415F97D911}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7485B1A9-2DF0-455C-B753-F6415F97D911}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

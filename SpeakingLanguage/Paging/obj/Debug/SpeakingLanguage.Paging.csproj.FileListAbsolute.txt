@@ -1,4 +1,0 @@
-C:\Users\dkwke\source\repos\SpeakingLanguage\Paging\obj\Debug\SpeakingLanguage.Paging.csprojResolveAssemblyReference.cache
-C:\Users\dkwke\source\repos\SpeakingLanguage\Paging\obj\Debug\SpeakingLanguage.Paging.csproj.CoreCompileInputs.cache
-C:\Users\dkwke\source\repos\SpeakingLanguage\Paging\obj\Debug\SpeakingLanguage.Paging.dll
-C:\Users\dkwke\source\repos\SpeakingLanguage\Paging\obj\Debug\SpeakingLanguage.Paging.pdb
